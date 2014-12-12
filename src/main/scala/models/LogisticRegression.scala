@@ -2,17 +2,22 @@ package models
 
 import java.util.Random
 
-import breeze.linalg.DenseVector
+import breeze.linalg.{SparseVector, DenseVector}
 import breeze.numerics.{round, exp}
 
 case class DataPoint[FV,L](featureVector: FV, label: L)
 
 object DataPoint {
-  // TODO: add sparseVector support
   def apply(featureVector: DenseVector[Double], label: Double) = {
     val fv = featureVector.asInstanceOf[DenseVector[Double]]
     val l = label.asInstanceOf[Double]
     DataPoint[DenseVector[Double],Double](fv,l)
+  }
+
+  def apply(featureVector: SparseVector[Double], label: Double) = {
+    val fv = featureVector.asInstanceOf[SparseVector[Double]]
+    val l = label.asInstanceOf[Double]
+    DataPoint[SparseVector[Double],Double](fv,l)
   }
 }
 
@@ -38,7 +43,7 @@ case class LogisticRegression(maxIterations: Int, learningRate: Double) {
 
   def generateTargetWeights(dim: Int) = {
     // Scale from [0, 1] to [-1, 1]
-    var itw = DenseVector.fill(dim){2 * rand.nextDouble - 1}
+    var itw = DenseVector.fill(dim)(2 * rand.nextDouble - 1)
     println("Initial target weights: " + itw)
     itw
   }

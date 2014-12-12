@@ -20,7 +20,7 @@ object LogisticRegressionExample {
   def generateTrainAndTestData: (TrainData,TestData) = {
     def generatePoint(i: Int): DataPoint[DenseVector[Double], Double] = {
       val y = if(i % 2 == 0) -1.0 else 1.0
-      val x = DenseVector.fill(D){rand.nextGaussian + y * R}
+      val x = DenseVector.fill(D)(rand.nextGaussian + y * R)
       DataPoint(x,y)
     }
 
