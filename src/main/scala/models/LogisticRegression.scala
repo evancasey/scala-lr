@@ -39,9 +39,10 @@ case class LogisticRegression(maxIterations: Int, learningRate: Double) {
     for (i <- 1 to maxIterations) {
       println("On iteration " + i)
       val gradient: DenseVector[Double] = trainData.map { point =>
-        point.featureVector * point.label * (1 / (1 + exp(itw.dot(point.featureVector) * -point.label)))
+        point.featureVector * point.label * ((1 / (1 + exp(itw.dot(point.featureVector) * -point.label))) - 1)
       }.reduce(_ + _)
 
+      println("Target w:" + itw)
       itw -= gradient * learningRate
     }
 

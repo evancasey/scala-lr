@@ -27,6 +27,8 @@ object LogisticRegressionExample {
     val train = Seq.tabulate(9 * N / 10)(generatePoint)
     val test = Seq.tabulate(N / 10)(generatePoint).map(_.featureVector)
 
+    println(train)
+
     (train,test)
   }
 
