@@ -5,26 +5,12 @@ import java.util.Random
 import breeze.linalg.{SparseVector, DenseVector}
 import breeze.numerics.{round, exp}
 
-case class DataPoint[FV,L](featureVector: FV, label: L)
-
-object DataPoint {
-  def apply(featureVector: DenseVector[Double], label: Double) = {
-    val fv = featureVector.asInstanceOf[DenseVector[Double]]
-    val l = label.asInstanceOf[Double]
-    DataPoint[DenseVector[Double],Double](fv,l)
-  }
-
-  def apply(featureVector: SparseVector[Double], label: Double) = {
-    val fv = featureVector.asInstanceOf[SparseVector[Double]]
-    val l = label.asInstanceOf[Double]
-    DataPoint[SparseVector[Double],Double](fv,l)
-  }
-}
+case class DataPoint(featureVector: DenseVector[Double], label: Double)
 
 // TODO: add defaults
 case class LogisticRegression(maxIterations: Int, learningRate: Double) {
 
-  type TrainData = Seq[DataPoint[DenseVector[Double],Double]]
+  type TrainData = Seq[DataPoint]
 
   val rand = new Random(42)
 

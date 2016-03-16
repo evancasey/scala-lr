@@ -7,7 +7,7 @@ import models.{LogisticRegression, DataPoint}
 
 object LogisticRegressionExample {
 
-  type TrainData = Seq[DataPoint[DenseVector[Double],Double]]
+  type TrainData = Seq[DataPoint]
   type TestData = Seq[DenseVector[Double]]
 
   val N = 10000  // Number of data points
@@ -18,7 +18,7 @@ object LogisticRegressionExample {
   val rand = new Random(42)
 
   def generateTrainAndTestData: (TrainData,TestData) = {
-    def generatePoint(i: Int): DataPoint[DenseVector[Double], Double] = {
+    def generatePoint(i: Int): DataPoint = {
       val y = if(i % 2 == 0) -1.0 else 1.0
       val x = DenseVector.fill(D)(rand.nextGaussian + y * R)
       DataPoint(x,y)
